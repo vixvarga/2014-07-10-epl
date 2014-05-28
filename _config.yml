@@ -2,7 +2,7 @@ markdown        : kramdown
 kramdown        :
   entity_output : as_input # &mdash; is output as &mdash;
   smart_quotes  : [39, 39, 34, 34] # decimal for left/right single/double quotes
-pygments        : true
+highlighter     : true
 contact         : "info@software-carpentry.org"
 facebook_url    : "https://www.facebook.com/SoftwareCarpentry"
 google_plus_url : "https://plus.google.com/+Software-carpentryOrg"
