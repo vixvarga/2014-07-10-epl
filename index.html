@@ -4,7 +4,7 @@ root: .
 venue: Edmonton Public Library Bootcamp
 address: Stanley Milner Library, 7 Sir Winston Churchill Square, Edmonton, AB
 country: Canada
-humandate:  June 10-11, 2014
+humandate:  Jun 10-11, 2014
 humantime: 9:00 am - 4:00 pm
 startdate: 2014-07-10
 enddate: 2014-07-11
@@ -12,15 +12,8 @@ latlng: 53.542948,-113.489552
 registration: restricted
 instructor: ["Cam Macdonell", "Sam Popowich", "Dana Ouellette", "Vicky Varga"]
 contact: macdonellc4@macewan.ca
-eventbrite: 11668602103
+eventbrite: "11668602103"
 ---
-<!--
-    Edit the values in the parameter block above to be appropriate for your bootcamp.
-    Please use three-letter month names for the 'humandate' field.
--->
-<!--
-    This block includes the Eventbrite registration widget if 'eventbrite' has been set in the header.
--->
 {% if page.eventbrite %}
 <iframe src="http://www.eventbrite.com/tickets-external?eid={{page.eventbrite}}&ref=etckt" frameborder="0" width="100%" scrolling="auto"></iframe>
 {% endif %}
@@ -28,16 +21,15 @@ eventbrite: 11668602103
 <h2>General Information</h2>
 
 <p>
-  <a href="http://software-carpentry.org">Software Carpentry</a>'s mission
-  is to help scientists and engineers become more productive
-  by teaching them basic lab skills for computing
-  like program design, version control, data management, and task automation.
-  This two-day hands-on bootcamp will cover basic concepts and tools;
-  participants will be encouraged to help one another
-  and to apply what they have learned to their own research problems.
+  <a href="http://software-carpentry.org">Software Carpentry</a>'s
+  mission is to help people become more productive by teaching them
+  basic computing skills like program design, version control, data
+  management, and task automation.  This two-day hands-on bootcamp
+  will cover basic concepts and tools; participants will be encouraged
+  to help one another and to apply what they have learned to their own
+  research problems.
 </p>
 
-<!-- This block displays the instructors' names if they are available. -->
 {% if page.instructor %}
 <p>
   <strong>Instructors:</strong>
@@ -45,19 +37,11 @@ eventbrite: 11668602103
 </p>
 {% endif %}
 
-<!--
-    Modify this block to reflect the target audience for your bootcamp.
-    In particular, if it is only open to people from a particular institution,
-    or if specialized prerequisite knowledge is required, please mention that.
--->
 <p>
   <strong>Who:</strong>
-  The course is aimed at graduate students and other researchers.
+  The course is aimed at librarians and other information management professionals.
 </p>
 
-<!--
-    This block displays the address and links to a map showing directions.
--->
 {% if page.latlng %}
 <p>
   <strong>Where:</strong>
@@ -69,19 +53,12 @@ eventbrite: 11668602103
 </p>
 {% endif %}
 
-<!--
-    Modify the block below if there are any special requirements.
--->
 <p>
   <strong>Requirements:</strong>
   Participants must bring a laptop with a few specific software packages installed
   (listed below).
 </p>
 
-<!--
-    This block automatically inserts a contact email address if one has been specified for the page.
-    If one hasn't, this block inserts the generic contact address for Software Carpentry.
--->
 <p>
   <strong>Contact</strong>:
   Please mail
@@ -95,9 +72,6 @@ eventbrite: 11668602103
 
 <hr/>
 
-<!--
-    Edit this block to show the syllabus and schedule for your bootcamp.
--->
 <h2>Schedule</h2>
 
 <table class="table table-striped">
@@ -120,9 +94,6 @@ eventbrite: 11668602103
 
 <hr/>
 
-<!--
-    Edit this block to show what topics will be covered.
--->
 <h2>Syllabus</h2>
 <p>Note that the following is a complete list of possible topics for bootcamps.  Some topics may not be covered.</p>
 <div class="row-fluid">
@@ -185,13 +156,6 @@ eventbrite: 11668602103
 </div>
 
 <hr/>
-
-
-
-<!--
-    Edit the setup instructions in _includes/setup.html to reflect your bootcamp.
-    (In particular, most bootcamps teach either Python or R, not both.)
--->
 
 <h2>Setup</h2>
 
