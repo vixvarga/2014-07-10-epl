@@ -38,6 +38,8 @@ may find themself working with.
 Eventually, we will get to the point where can know how many holds 
 there are on Ender's Game.
 
+Here is the data of the above spreadsheet exported as [CSV file](../../data/librarians/simple.csv).
+
     List Titles with Holds,,,,,,,,
     Holds,Title,Author,Hold Created Date,Hold Placed Lib,Item Library,Pickup Library,Item Type,Availability
     1,RED 2,Malkovich, John,2014-05-14 0:00,EPLWMC,EPLLHL,EPLRIV,DVD7,Not Available
