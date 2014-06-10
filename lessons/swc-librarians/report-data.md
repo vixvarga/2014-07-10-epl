@@ -1,7 +1,7 @@
 ---
 layout: lesson
 root: ../..
-title: Working with Excel files
+title: Working with Report Data (Excel or Director's Station)
 ---
 
 ## Opening
