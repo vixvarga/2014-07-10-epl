@@ -105,7 +105,199 @@ format of the third, **Sep 5 1961**.  Specifically, we want "MMM DD YYYY"
 where each month is the standard three character month, followed by a space,
 a two digit day, followed by another space, then a 4-digit year.
 
-### First, reading a file
 
-Our circulation card is stored in a plain-text file named .
+
+### Building our program
+
+#### 1. Reading a file
+
+Our circulation card is stored in a plain-text file named [library-card.txt](./files/library-card.txt).  Our goal is
+to change the contents of this file, but to keep its name the same.  In order to do this, we need to know how to read
+and write files in Python.
+
+To access a file in any way, either reading from it or writing to it, we must first open the file.  And when we are done
+reading or writing a file, we must close it.  Therefore, most file access will be surrounded by **open()** and **close()**
+commands as follows:
+
+~~~ python
+f = open('library-card.txt')
+...read file data and do something with it...
+f.close()
+~~~
+
+For example, the following program will print out all the lines of a file with a line number prepended to each line:
+
+~~~ python
+file_handle = open('provinces.txt')
+all_lines = file_handle.readlines()
+line_number = 0
+for line in all_lines:
+    print str(line_number) + ": ",
+    print line 
+    line_number = line_number + 1
+file_handle.close()
+~~~
+
+By reading all the lines of the file using readlines (line 2) and then looping over them, we print the lines individually
+and can modify each line as we want.  With each line we do the following inside the loop
+    1. we print the line number
+    2. we print line itself
+    3. we increment the line number for use on the next line
+
+Please take a second to understand what each line is doing above.
+
+If provinces.txt contained
+
+    Alberta
+    British Columbia
+    Manitoba
+    Ontario
+    New Brunswick
+
+The output would be
+
+    0: Alberta
+    1: British Columbia
+    2: Manitoba
+    3: Ontario
+    4: New Brunswick
+
+### Back to our circulation card:
+
+Let's write the code to read the card file named library_card.txt into our program.  (I suggest giving the students a few minutes to try this.)
+
+
+~~~ python
+    fh = open('library-card.txt')
+    all_lines = fh.readlines()
+    fh.close()
+~~~
+
+The above will read in all the contents of circulation card.  Even if it
+contain one million lines, it would read them all in.
+
+What do we want to do with them?  Recall our goal is simply to *clean* the
+data.  So, we want to access only the lines that have checkout dates on them.
+The first three lines contain other information, so we only want the other lines.
+
+The readlines method, when called on the file handle (fh), returns all the
+lines of the file in a large list.  We know how to loop over all the lines, we
+would do this as follows:
+
+~~~ python
+    fh = open('library_card.txt')
+    all_lines = fh.readlines()
+    for line in all_lines:
+        print line
+    fh.close()
+~~~
+
+But, how do we skip the first three lines?  That's easy.  We can use **list slicing**, we can give two
+indices - where to start and where to stop to index into the list.  So the following code will give us 
+just the lines we want.
+
+~~~ python
+    fh = open('library-card.txt')
+    all_lines = fh.readlines()
+    due_dates = all_lines[3:len(all_lines)]
+    for date in due_dates
+        print date
+    fh.close()
+~~~
+
+On the 3rd line above, we create a new list named due_dates by indexing the list variable all_lines to start at line 3 and go until the end, the length of the list len(all_lines).  After executing this line, due_dates will contain only the lines that have the due dates, not the book title, author, etc.
+
+We are ready to process our dates.
+
+## Spliting the data
+
+Each line of our due_dates contains a due date that is in one of three formats:
+
+    Feb 16 53
+    Jun 21 '54
+    Sep 5 1961
+
+The months and days are accurate, so we only need to modify the year.  How can
+we access it?  The first task is to split the data into the separate fields
+- month, day, year.
+
+Take a minute and modify your program to only output the year from each line.
+
+~~~ python
+    fh = open('library-card.txt')
+    all_lines = fh.readlines()
+    due_dates = all_lines[3:len(all_lines)]
+    for date in due_dates
+        field = date.split(' ') # we want to divide the data on whitespace into M-D-Y
+        print field[2],
+    fh.close()
+~~~
+
+Now, you should see output like the following:
+
+    '49
+    50
+    51
+    53
+    '53
+    '53
+    '53
+    '53
+    '54
+    1958
+    1960
+    1960
+    1960
+    62
+    1960
+
+I have reduced the number of entries for brevity, but you can clearly see the
+three different kinds of dates.  Our goal is to convert them all into 4-digit
+years.
+
+### Still to come....
+
+## Writing to a file
+
+Just a we can read from a file, Python naturally supports writing to files too.  The following simple snippet will
+create a file named 'my_words.txt' and write four lines to it.
+
+~~~ python
+file_handle = open('my_words.txt', 'w')
+for word in ['the', 'quick', 'brown', 'fox']
+    file_handle.write(word + '\n')
+file_handle.close()
+~~~
+
+After running this code, the contents of my_words.txt would be
+
+    the
+    quick
+    brown
+    fox
+
+If my_words.txt already existed, regardless of it's length or contents, it would be overwritten with the four lines above.
+
+It is important to close all files (reading or writing) when you are done with them or unexpected things can happen.
+
+## Modifying files
+
+If we want to modify a file, that is, make a change to it, the process can seem complicated.  We will first open it, read the contents into our program and then close the file.  Then we will open it again (this time using the 'w' parameter) and overwrite it.  Even if we want to change a single line, in Python, we will overwrite the whole file completely.  This might sound inefficient, akin to rewriting a whole document by hand, but given computers are so fast at writing files, it's the easiest way to do it.
+
+~~~ python
+fh = open('library-card.txt', 'r')
+...read in the data...
+fh.close()
+...modify the data...
+fh = open('library-card.txt', 'w')
+...write the modified data to the file...
+fh.close()
+~~~
+
+**Caution:** In Python, when a file is opened with 'w' as the second
+parameter, the contents of the file are deleted, even if nothing is written to
+the file.  It is important to understand what you are doing when writing to
+files.  I suggest using test files before running your program on any important
+data that would be difficult to replace.
+
 
