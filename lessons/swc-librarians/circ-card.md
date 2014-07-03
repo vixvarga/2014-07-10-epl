@@ -162,7 +162,7 @@ The output would be
     3: Ontario
     4: New Brunswick
 
-### Back to our circulation card:
+##### Back to our circulation card:
 
 Let's write the code to read the card file named library_card.txt into our program.  (I suggest giving the students a few minutes to try this.)
 
@@ -209,7 +209,7 @@ On the 3rd line above, we create a new list named due_dates by indexing the list
 
 We are ready to process our dates.
 
-## Spliting the data
+#### 2. Splitting the data
 
 Each line of our due_dates contains a due date that is in one of three formats:
 
@@ -255,9 +255,11 @@ I have reduced the number of entries for brevity, but you can clearly see the
 three different kinds of dates.  Our goal is to convert them all into 4-digit
 years.
 
+#### 3.  Detecting 2-digit years
+
 ### Still to come....
 
-## Writing to a file
+#### Writing to a file
 
 Just a we can read from a file, Python naturally supports writing to files too.  The following simple snippet will
 create a file named 'my_words.txt' and write four lines to it.
@@ -280,7 +282,7 @@ If my_words.txt already existed, regardless of it's length or contents, it would
 
 It is important to close all files (reading or writing) when you are done with them or unexpected things can happen.
 
-## Modifying files
+#### Modifying files
 
 If we want to modify a file, that is, make a change to it, the process can seem complicated.  We will first open it, read the contents into our program and then close the file.  Then we will open it again (this time using the 'w' parameter) and overwrite it.  Even if we want to change a single line, in Python, we will overwrite the whole file completely.  This might sound inefficient, akin to rewriting a whole document by hand, but given computers are so fast at writing files, it's the easiest way to do it.
 
