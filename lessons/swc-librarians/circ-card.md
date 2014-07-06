@@ -207,6 +207,25 @@ just the lines we want.
 
 On the 3rd line above, we create a new list named due_dates by indexing the list variable all_lines to start at line 3 and go until the end, the length of the list len(all_lines).  After executing this line, due_dates will contain only the lines that have the due dates, not the book title, author, etc.
 
+You should see output like the following:
+
+    Dec 17 '49
+    
+    Sep 4 50
+    
+    Feb 28 51
+    
+    Jun 18 51
+    
+    Aug 18 51
+    
+    Oct 5 51
+    
+
+The above looks unusual because there are extra spaces in between each line.  The reason for this is there is a "newline" character at the end of each line in the file and Python adds a "newline" character to each line that is printed with "print".  We can get rid of the former by using the strip() method for a string.
+
+Add date = date.strip() before the print statement to get rid of the extra space.
+
 We are ready to process our dates.
 
 #### 2. Splitting the data
@@ -229,7 +248,7 @@ Take a minute and modify your program to only output the year from each line.
     due_dates = all_lines[3:len(all_lines)]
     for date in due_dates
         field = date.split(' ') # we want to divide the data on whitespace into M-D-Y
-        print field[2],
+        print field[2]
     fh.close()
 ~~~
 
@@ -256,6 +275,111 @@ three different kinds of dates.  Our goal is to convert them all into 4-digit
 years.
 
 #### 3.  Detecting 2-digit years
+
+So in our program so far, the string referred to by **field[2]** is the year.
+
+##### Two-digit years without an apostrophe
+
+The simplest cases are years that have a two-digit year without an apostrophe
+in front, such as **50**.  
+
+First, we must detect that we have a two-digit-non-apostrophe year?  So what identifies
+two-digit years like **50** versus the other year formats like **'49** and **1963**?
+
+Their lengths?  Two-digit years without an apostrophe have a length of
+2 (there are two characters, the 5 and the 0 in the case of 50)
+where two-digit years *with an apostrophe* have a length of 3 characters (the
+', the 4 and the 9).  So if we detect that field[2] has a length of 2 then we will know
+we have a two-digit year.
+
+We can detect the length of a string using the *len()* function.
+
+    if len(field[2]) == 2:
+
+So, how do we change **50** into **1950** in Python?
+
+Remember that we are dealing with strings, not integers, so we *concatenate*
+a **"19"** on the front.
+
+    field[2] = "19" + field[2]
+
+So, we need to add the following code to modify two-digit-no-apostrophe years to 4-digit years:
+
+    if len(field[2]) == 2:
+        field[2] = "19" + field[2]
+
+See if you can add this code in the correct location?  Our output should change to:
+
+    '49
+    1950
+    1951
+    1951
+    1951
+    1951
+    1952
+    1952
+    1952
+    1953
+    '53
+    '53
+    '53
+    '53
+
+Ta da!  Our two-digit dates have been converted to 4-digit dates.
+
+##### Two digit dates with an apostrophe
+
+The second case we need to fix is very similar to the first.  We need to detect years that contain an apostrophe.
+The simplest way is to again check the length.  Years with apostrophes will
+have a length of 3.  So we can use a similar if statement like
+
+    if len(field[2]) == 3:
+
+will detect them.  But how do we fix it?  We cannot simply concatenate like we did before as that would result
+in '49 turning into **19'49** which is not what we want?  How do we get just
+the last two characters, the 2 year digits we want.
+
+Similar to skipping the first three lines of the file, we can *slice* the part of the string we want.  We don't
+want the first character which has the index???? Zero, that's right!  So we'll start at index one.  The following
+(slightly complicated) bit of Python will get just the year dates
+
+    field[2][1:len(field[2])]
+
+Sometimes using an extra variable makes the code a bit more readable:
+
+    yr_apostrophe = field[2]
+    field[2] = "19" + yr_apostrophe[1:len(field[2])]
+
+In fact, we can drop the **len(field[2])** and get cleaner code
+
+    yr_apostrophe = field[2]
+    field[2] = "19" + yr_apostrophe[1:]
+
+So, combine this statement with the if statement above to modify two digit years with apostrophes into 4-digit years.
+
+    1949
+    1950
+    1951
+    1951
+    1951
+    1951
+    ...
+    <snip>
+    ...
+    1961
+    1961
+    1962
+    1962
+
+Congrats, we have successfully modified our data.  Our list "due_dates" now contains all the due dates with the proper years.  So let's print out all the complete dates.  The rest of the dates are contained in field[0] (the month) and field[1], the day, so add them to the print statement.  Your output should now look like the following:
+
+    Dec 17 1949
+    Sep 4 1950
+    Feb 28 1951
+    Jun 18 1951
+    Aug 18 1951
+    Oct 5 1951
+    Feb 26 1952
 
 ### Still to come....
 
