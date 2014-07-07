@@ -197,3 +197,66 @@ file1.close()
 file2.close()
 ~~~
 
+When you run your program, you will notice that the checkouts are printing on a separate line from the author and the title:
+
+~~~python
+Title Author
+checkouts
+
+Catching Fire Suzanne Collins
+5
+
+A Canticle for Leibowitz Walter M. Miller
+4
+~~~
+
+This is because in our original file 2, the author field is at the end of the line. This is because of the .csv format. There is a new line character at the end of the author field, so the checkout information is being printed on a new line. We can remove this using a method called rstrip(). This removes all white space characters from the right of a string. We want to apply this to our author field, which is field_f2[2]:
+
+~~~python
+file1 = open('circ-id.csv')
+file2 = open ('title-auth.csv')
+
+f1_lines = file1.readlines()
+f2_lines = file2.readlines()
+
+for line_f1 in f1_lines:
+    field_f1 = line_f1.split(',')   
+    for line_f2 in f2_lines:
+        field_f2 = line_f2.split(',')
+        if field_f1[0] == field_f2[0]:
+            print field_f2[1], field_f2[2].rstrip(), field_f1[1]
+            
+
+file1.close()
+file2.close()
+~~~
+
+We also have an extra line after each of our printed lines. This is because the checkout data element also has a new line character. Try removing this character now, too, so that extra line does not appear in your output.
+
+~~~python
+file1 = open('circ-id.csv')
+file2 = open ('title-auth.csv')
+
+f1_lines = file1.readlines()
+f2_lines = file2.readlines()
+
+for line_f1 in f1_lines:
+    field_f1 = line_f1.split(',')   
+    for line_f2 in f2_lines:
+        field_f2 = line_f2.split(',')
+        if field_f1[0] == field_f2[0]:
+            print field_f2[1], field_f2[2].rstrip(), field_f1[1].rstrip()
+            
+
+file1.close()
+file2.close()
+~~~
+
+Your output should now look something like this:
+~~~python
+Title Author checkouts
+Catching Fire Suzanne Collins 5
+A Canticle for Leibowitz Walter M. Miller 4
+The Moon is a Harsh Mistress Robert A. Heinlein 2
+...
+~~~
