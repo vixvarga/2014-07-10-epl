@@ -129,7 +129,7 @@ Your output will look something like this now:
 ['312210121823', '4\n']
 ...
 ['Item ID', 'Title', 'Author\n']
-['312210121823', 'A Canticle for Leibowitz', '"Walter M. Miller', ' JR"\n']
+['312210121823', 'A Canticle for Leibowitz', 'Walter M. Miller\n']
 ['312210121212', 'Catching Fire', 'Suzanne Collins\n']
 ...
 ~~~
