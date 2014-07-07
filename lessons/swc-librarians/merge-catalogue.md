@@ -32,7 +32,7 @@ File 1 - [title-auth.csv](files/title-auth.csv)
 File 2 - [circ-id.csv](files/circ-id.csv)
 
 ###Why is this a problem?
-
+By merging our two data sets, we will be able to see which of our titles has the highest circulation. While our sample data set is small and we can figure out the largest item by cross-referencing the two data files ourselves, this would not be possible with a data set containing thousands of titles from your library.
 
 ##How to merge our data
 To solve our problem, we need to match each line in file 1 with the corresponding line in file 2. There is only one field that appears in both fields, Item ID, so we need to use this field to match lines between our files. We will do this by opening each file, looping through the contents, and printing out the lines that match each other.
