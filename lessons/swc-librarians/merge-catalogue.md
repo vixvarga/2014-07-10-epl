@@ -76,7 +76,6 @@ file1 = open('circ-id.csv')
 file2 = open ('title-auth.csv')
 
 f1_lines = file1.readlines()
-
 for line_f1 in f1_lines:
     field_f1 = line_f1.split(',')
     print field_f1        
@@ -101,3 +100,100 @@ On the sixth line above, we begin looping over our data stored in the variable f
 ['312210128794', '7\n']
 ['312210125321', '14\n']
 ~~~
+
+Now that we have our data from file 1 separated into discrete elements, we can now repeat the same thing for file 2:
+
+~~~ python
+file1 = open('circ-id.csv')
+file2 = open ('title-auth.csv')
+
+f1_lines = file1.readlines()
+f2_lines = file2.readlines()
+
+for line_f1 in f1_lines:
+    field_f1 = line_f1.split(',')
+    print field_f1      
+
+for line_f2 in f2_lines:
+    field_f2 = line_f2.split(',')
+    print field_f2     
+	
+file1.close()
+file2.close()
+~~~
+
+Your output will look something like this now:
+~~~ python
+['Item ID', 'checkouts\n']
+['312210121212', '5\n']
+['312210121823', '4\n']
+...
+['Item ID', 'Title', 'Author\n']
+['312210121823', 'A Canticle for Leibowitz', '"Walter M. Miller', ' JR"\n']
+['312210121212', 'Catching Fire', 'Suzanne Collins\n']
+...
+~~~
+
+Now that both files are read and split into arrays, we can compare the two line by line. We need to compare every single line in file 2 to every line in file 1 to see if there is a match. Right now, our program is looking at every line in file 1, and then looking at every line in file two. However, what we want is that while our program is looking at the first line in file 1, it should then look at every single line in file 2 to see if they match.To do so, we need to nest the two loops we already have for our program. We are going to do this by inserting our second loop at the end of our first loop, increasing its indentation to bring it "inside" the first loop:
+
+~~~python
+file1 = open('circ-id.csv')
+file2 = open ('title-auth.csv')
+
+f1_lines = file1.readlines()
+f2_lines = file2.readlines()
+
+for line_f1 in f1_lines:
+    field_f1 = line_f1.split(',')
+    print field_f1      
+    for line_f2 in f2_lines:
+        field_f2 = line_f2.split(',')
+        print field_f2     
+
+file1.close()
+file2.close()
+~~~
+
+We now have a loop inside of another loop. Our program looks at the first line of file 1 and prints it, and then looks at every line of file 2 and prints it, and then move on the the second line of file 1 and repeats. We don't really want to be printing each line however. We want to compare elements of each line to see if they match. We will do so by comparing the first data element (the Item ID column) of each line from both files using the == operator. Then, we will use an if statement to print "yes" whenever the two fields match. Since the item ID column is the first data element in both documents, it can be referenced as field_f1[0] for file 1 and field_f2[0] for file 2.
+~~~python
+file1 = open('circ-id.csv')
+file2 = open ('title-auth.csv')
+
+f1_lines = file1.readlines()
+f2_lines = file2.readlines()
+
+for line_f1 in f1_lines:
+    field_f1 = line_f1.split(',')   
+    for line_f2 in f2_lines:
+        field_f2 = line_f2.split(',')
+        if field_f1[0] == field_f2[0]:
+            print "yes"
+
+
+file1.close()
+file2.close()
+~~~
+
+On line 11 above, we are telling our program that if the data element in the variable field_f1[0] (i.e. the first piece of data in the array of the field line from file 1) matches the variable field_f2[0] (i.e. the first piece of data in the array of the field line from file 2), then print out the word "yes".
+
+Instead of printing "yes", we want to print out the merged contenst of the lines that match. We want to see the title and author and the number of checkouts. The title is stored in the second data element (n=1) of each line in file 2, which is represented as field_f2[1]. Since the author is stored in the second data element of each line from file 2, it can be referenced as field_f2[2]. The number of checkouts is the second data element in file 1, so it is referenced as field_f1[1]. So, we just need to print out each of these values out now:
+
+~~~python
+file1 = open('circ-id.csv')
+file2 = open ('title-auth.csv')
+
+f1_lines = file1.readlines()
+f2_lines = file2.readlines()
+
+for line_f1 in f1_lines:
+    field_f1 = line_f1.split(',')   
+    for line_f2 in f2_lines:
+        field_f2 = line_f2.split(',')
+        if field_f1[0] == field_f2[0]:
+            print field_f2[1], field_f2[2], field_f1[1]
+            
+
+file1.close()
+file2.close()
+~~~
+
